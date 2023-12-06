@@ -1,23 +1,15 @@
-#!/usr/bin/python3
-"""Pascal triangle"""
-
-
 def pascal_triangle(n):
-    """eturns a list of lists of integers 
-    representing the Pascal’s triangle of n:
-
-    if n <= 0 Returns an empty list"""
-
+    # Check if n is less than or equal to 0
     if n <= 0:
         return []
 
-    output = [[1]]
+    # Initialize the triangle with the first row
+    triangle = [[1]]
 
-    for i in range(n - 1):
-        temp = [0] + output[-1] + [0]
-        row = []
-        for j in range(len(output[-1]) + 1):
-            row.append(temp[j] + temp[j + 1])
-            output.append(row)
+    # Generate the subsequent rows using zip
+    for _ in range(1, n):
+        # Use zip to combine the current row and its shifted version
+        row = [1] + [a + b for a, b in zip(triangle[-1], triangle[-1][1:])] + [1]
+        triangle.append(row)
 
-    return (output)
+    return triangle
